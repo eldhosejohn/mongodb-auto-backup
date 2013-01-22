@@ -1,9 +1,9 @@
 
 #!/bin/bash
 
-MONGODB_SHELL='mongo' #otherwise location
-DUMP_UTILITY='mongodump'
-DB_NAME='c'
+MONGODB_SHELL='' #otherwise location
+DUMP_UTILITY=''
+DB_NAME=''
 
 USERNAME=""
 PASSWORD=""
@@ -17,7 +17,7 @@ date_now=`date +%Y_%m_%d_%H_%M_%S`
 
 BACKUP_DIR_NAME=${SCRIPT_DIR}'/db_backup_'${date_now}
 BACKUP_FILE_NAME='db_backup_'${date_now}'.bz2'
-BACKUP_FILE_LOCN=${SCRIPT_DIR}'/'${DB_NAME}
+BACKUP_FILE_LOCN=${SCRIPT_DIR}'/'${BACKUP_FILE_NAME}
 
 FSYNC_FILE=${SCRIPT_DIR}'/fsync_lock.js'   #The MongoDB Lock file to avoid data writes
 UNLCK_FILE=${SCRIPT_DIR}'/unlock.js'  #The MongoDB unlock file
@@ -28,22 +28,22 @@ log() {
 }
  
 do_cleanup(){
-    rm -r  ${BACKUP_DIR_NAME}
-    rm ${BACKUP_FILE_NAME}    
+   # rm -r  ${BACKUP_DIR_NAME}
+   # rm ${BACKUP_FILE_LOCN}    
     log 'cleaning up....'
 }
  
 do_backup(){
     log 'snapshotting the db and creating archive' && \
     ${MONGODB_SHELL} admin ${FSYNC_FILE} && \
-    ${DUMP_UTILITY} -d ${DB_NAME} -u ${USERNAME} -p ${PASSWORD} -o ${BACKUP_DIR_NAME} && tar jcfP ${BACKUP_FILE_NAME} ${BACKUP_DIR_NAME}
+    ${DUMP_UTILITY} -d ${DB_NAME} -u ${USERNAME} -p ${PASSWORD} -o ${BACKUP_DIR_NAME} && tar jcfP ${BACKUP_FILE_LOCN} ${BACKUP_DIR_NAME}
     ${MONGODB_SHELL} admin ${UNLCK_FILE} && \
     log 'data backd up and created snapshot'
 }
  
 save_in_s3(){
     log 'saving the backup archive in amazon S3' && \
-    python ${S3_FILE} set ${DB_NAME} ${BACKUP_FILE_NAME} && \
+    python ${S3_FILE} set ${BACKUP_FILE_NAME} ${BACKUP_FILE_LOCN} && \
     log 'data backup saved in amazon s3'
 }
  
