@@ -10,6 +10,14 @@ Boto S3 [pip install boto] <br/>
 s3multiput or s3cmd comes with Amazon EC2 [apt-get install s3cmd] <br/>
 FileChunkIO [easy_install FileChunkIO]
 
+Add a Cron Job
+
+crontab -e
+
+MAILTO="your@email.com" #if u want notification
+* * * * /home/ubuntu/db-backup/mongodb-auto-backup/backup.sh # make sure its workign and set time accordingly
+
+
 --Credits--
 
 http://sunilarora.org/database-backup-from-mongodb-to-amazon-s3-and
