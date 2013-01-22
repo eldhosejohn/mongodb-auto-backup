@@ -2,15 +2,13 @@ Automatic MongoDB Backup
 
 Simple bash script for mongodb database backup.
 
-Only dump part is done.
+PS:Only dump part is done.
 
 --Required--
 
-+Boto S3 [pip install boto]
-
-+s3multiput or s3cmd comes for Amazon [apt-get install s3cmd]
-
-+FileChunkIO [easy_install FileChunkIO]
+Boto S3 [pip install boto] <br/>
+s3multiput or s3cmd comes with Amazon EC2 [apt-get install s3cmd] <br/>
+FileChunkIO [easy_install FileChunkIO]
 
 --Credits--
 
