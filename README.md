@@ -15,7 +15,8 @@ Add a Cron Job
 crontab -e
 
 MAILTO="your@email.com" #if u want notification
-* * * * /home/ubuntu/db-backup/mongodb-auto-backup/backup.sh # make sure its workign and set time accordingly
+
+* * * * /home/ubuntu/db-backup/mongodb-auto-backup/backup.sh >dev/null 2>&1 # make sure its working and set time accordingly, for more read cyberciti.biz
 
 
 --Credits--
