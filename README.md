@@ -11,10 +11,11 @@
 
 ####Settings
 
-1. Add amazon bucketname, s3 key & secret in aws_s3.py  
-2. Create a cron job by crontab -e  
-3. Add the following lines of code, which just send mail if the backup is done  
-`0 5 * * 1 touch /home/ubuntu/db-backup/mongodb-auto-backup/backup.sh /dev/null 2>&1`
+1. Add s3 bucketname, key & secret in aws_s3.py  
+2. Specify the script directory in backup.sh
+3. Create a cron job by crontab -e  
+4. Add the following lines of code to run the script as a cronjob, following will execute at 12 AM everyday
+`0 0 * * * touch /home/ubuntu/db-backup/mongodb-auto-backup/backup.sh /dev/null 2>&1`
 
 Set the backup time according to your requirement, for more read http://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/
 
