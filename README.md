@@ -1,4 +1,4 @@
-#Automatic MongoDB Backup
+#Scheduled MongoDB Backup
 
 ### Script for mongodb database backup to amazon S3.
 
